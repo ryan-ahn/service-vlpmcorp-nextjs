@@ -38,6 +38,8 @@
     "pages/_document.js",
     "pages/_document.js",
     "lib/utils/googleAnalytics.js",
-    "pages/test.js"
+    "pages/test.js",
+    "lib/store/useZustandStore.js",
+    "lib/store/useZustandStore.ㅓs"
   ]
 }

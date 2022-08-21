@@ -66,4 +66,21 @@ export const GlobalStyle = createGlobalStyle`
       opacity: 1;
       width: 165px;
     }
+  }
+  @keyframes height100 {
+    from {
+      height: 0;
+    }
+    to {
+      height: 100%;
+    }
+  }
+  @keyframes height20 {
+    from {
+      height: 0;
+    }
+    to {
+      height: 15%;
+    }
+  }
 `;

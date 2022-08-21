@@ -4,26 +4,42 @@
  * Desc : index
  */
 
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
+import { throttle } from 'lodash';
 import styled from 'styled-components';
+import { useScrollStore } from '@lib/store/useZustandStore';
 import FirstSection from './1-FirstSection';
 import SecondSection from './2-SecondSection';
 import ThirdSection from './3-ThirdSection';
 import HeaderBlock from './HeaderBlock';
 
 export default function Main() {
+  // RootState
+  const { setCurrentScroll } = useScrollStore();
   // Ref
   const scrollRef = useRef<any>(null);
-  const firstSectionRef = useRef<any>(null);
+
+  const setScroll = throttle(() => {
+    if (document !== undefined) {
+      const scroll = document.getElementById('scroll');
+      if (scroll) {
+        setCurrentScroll(scroll.scrollTop);
+      }
+    }
+  }, 100);
 
   useEffect(() => {
-    if (scrollRef !== null && scrollRef.current !== null) {
-      console.log(scrollRef.current.scrollTop);
+    const scroll = document.getElementById('scroll');
+    if (scroll) {
+      scroll.addEventListener('scroll', setScroll);
+      return () => {
+        scroll.removeEventListener('scroll', setScroll);
+      };
     }
-  }, []);
+  });
 
   return (
-    <Wrapper ref={scrollRef}>
+    <Wrapper ref={scrollRef} id="scroll">
       <HeaderBlock />
       <FirstSection />
       <SecondSection />
