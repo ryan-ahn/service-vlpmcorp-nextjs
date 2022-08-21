@@ -5,6 +5,7 @@
  */
 
 import styled from 'styled-components';
+import { useScrollStore } from '@lib/store/useZustandStore';
 
 export default function FirstSection() {
   return (
