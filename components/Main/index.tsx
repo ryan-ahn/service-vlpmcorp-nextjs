@@ -12,6 +12,7 @@ import FirstSection from './1-FirstSection';
 import SecondSection from './2-SecondSection';
 import ThirdSection from './3-ThirdSection';
 import HeaderBlock from './HeaderBlock';
+import FourthSection from './4-fourthSection';
 
 export default function Main() {
   // RootState
@@ -44,6 +45,7 @@ export default function Main() {
       <FirstSection />
       <SecondSection />
       <ThirdSection />
+      <FourthSection />
     </Wrapper>
   );
 }

@@ -40,7 +40,7 @@ export default function SecondSection() {
 const Wrapper = styled.div`
   ${({ theme }) => theme.flexSet('center', 'center', 'row')};
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 60px);
 `;
 
 const ContentBlock = styled.div<TAnimation>`
