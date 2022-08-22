@@ -27,19 +27,19 @@ export default function ThirdSection() {
   return (
     <Wrapper ref={thirdScrollRef}>
       <ContentBlock>
-        <TitleBox attrAnim={currentScroll > thirdOffsetTop - 550}>
+        <TitleBox attrAnim={currentScroll > thirdOffsetTop - 600}>
           <p>
             <em>발품노노</em>
             {`에서\n한번에 견적 비교하세요!`}
           </p>
         </TitleBox>
         <GraphBox>
-          <EverageGraphBox attrAnim={currentScroll > thirdOffsetTop - 550}>
+          <EverageGraphBox attrAnim={currentScroll > thirdOffsetTop - 600}>
             <div>
               <p>{'매장방문\n평균 8회'}</p>
             </div>
           </EverageGraphBox>
-          <VlpmGraphBox attrAnim={currentScroll > thirdOffsetTop - 550}>
+          <VlpmGraphBox attrAnim={currentScroll > thirdOffsetTop - 600}>
             <div>
               <p>1회 신청</p>
             </div>
@@ -91,21 +91,18 @@ const GraphBox = styled.div`
   margin-bottom: 40px;
 `;
 
-const EverageGraphBox = styled.div<TAnimation>`
+const CommonGraphBox = styled.div`
   position: relative;
   width: 120px;
   height: 270px;
-  margin-right: 70px;
   border-radius: 15px;
   overflow: hidden;
-  background-color: #666;
   opacity: 0;
   & > div {
     ${({ theme }) => theme.flexSet('center', 'center', 'row')};
     position: absolute;
     bottom: 0;
     width: 100%;
-    background-color: #c5c5c5;
     opacity: 0;
     & > p {
       opacity: 0;
@@ -113,6 +110,11 @@ const EverageGraphBox = styled.div<TAnimation>`
       white-space: pre-wrap;
     }
   }
+`;
+
+const EverageGraphBox = styled(CommonGraphBox.withComponent('div'))<TAnimation>`
+  margin-right: 70px;
+  background-color: #666;
   ${props =>
     props.attrAnim &&
     css`
@@ -121,6 +123,7 @@ const EverageGraphBox = styled.div<TAnimation>`
       & > div {
         opacity: 1;
         animation: height100 1s 1.5s both;
+        background-color: #c5c5c5;
         & > p {
           opacity: 1;
           animation: fadein 0.5s 2.5s both;
@@ -128,36 +131,22 @@ const EverageGraphBox = styled.div<TAnimation>`
       }
     `}
 `;
-const VlpmGraphBox = styled.div<TAnimation>`
-  position: relative;
-  width: 120px;
-  height: 270px;
-  border-radius: 15px;
-  overflow: hidden;
+
+const VlpmGraphBox = styled(CommonGraphBox.withComponent('div'))<TAnimation>`
   background-color: #666;
-  & > div {
-    ${({ theme }) => theme.flexSet('center', 'center', 'row')};
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background-color: #4f90ff;
-    opacity: 0;
-    & > p {
-      opacity: 0;
-      color: white;
-      ${({ theme }) => theme.fontSet(18, 700, 30)};
-      white-space: pre-wrap;
-    }
-  }
+  opacity: 0;
   ${props =>
     props.attrAnim &&
     css`
+      opacity: 1;
       animation: fadein 1s 1s both;
       & > div {
         opacity: 1;
         animation: height20 1s 1.5s both;
+        background-color: #4f90ff;
         & > p {
           opacity: 1;
+          color: white;
           animation: fadein 0.5s 2.5s both;
         }
       }

@@ -4,20 +4,30 @@
  * Desc : 1-FirstSection
  */
 
+import { useCallback } from 'react';
 import styled from 'styled-components';
+import { useScrollStore } from '@lib/store/useZustandStore';
+import { useScrollTo } from '@lib/hooks/useScroll';
 
 export default function FirstSection() {
+  // RootState
+  const { contactOffsetTop } = useScrollStore();
+
+  const onClickScrollToUp = useCallback(() => {
+    useScrollTo('default', 0, contactOffsetTop, 'smooth');
+  }, [contactOffsetTop]);
+
   return (
     <Wrapper>
       <ContentBlock>
         <DescriptionBox>
           <p>{`발품없는\n패키지 가전\n전국딜러 견적비교`}</p>
           <StoreBox>
-            <AppStoreButton>
+            <AppStoreButton onClick={onClickScrollToUp}>
               <div />
               <p>App Store</p>
             </AppStoreButton>
-            <PlayStoreButton>
+            <PlayStoreButton onClick={onClickScrollToUp}>
               <div />
               <p>Google Store</p>
             </PlayStoreButton>
@@ -90,5 +100,5 @@ const PlayStoreButton = styled(CommonButton.withComponent('div'))`
 
 const SimulatorImageBox = styled.img`
   width: 350px;
-  animation: fadein 5s 2s both;
+  animation: fadein 2s 2s both;
 `;

@@ -12,34 +12,30 @@ type TAnimation = {
   attrAnim: boolean;
 };
 
-export default function FourthSection() {
+export default function FifthSection() {
   // RootState
-  const { currentScroll, fourthOffsetTop, setFourthOffsetTop } = useScrollStore();
+  const { currentScroll, fifthOffsetTop, setFifthOffsetTop } = useScrollStore();
   // Ref
-  const fourthScrollRef = useRef<any>(null);
+  const fifthScrollRef = useRef<any>(null);
 
   useEffect(() => {
-    if (fourthScrollRef && fourthScrollRef.current) {
-      setFourthOffsetTop(fourthScrollRef.current.offsetTop);
+    if (fifthScrollRef && fifthScrollRef.current) {
+      setFifthOffsetTop(fifthScrollRef.current.offsetTop);
     }
   }, []);
 
   return (
-    <Wrapper ref={fourthScrollRef}>
+    <Wrapper ref={fifthScrollRef}>
       <ContentBlock>
-        <SimulatorImageBox
-          src="/static/images/simulator2.png"
-          attrAnim={currentScroll > fourthOffsetTop - 600}
-        />
-        <DescriptionBox attrAnim={currentScroll > fourthOffsetTop - 600}>
-          <h1>요청서 작성</h1>
-          <p>{`원하는 스펙과 조건으로\n손쉬운 요청서 작성이 가능해요`}</p>
-          <p>
-            {`가전 구성을 선택하면 `}
-            <em>Ai</em>
-            {` 인공지능이\n추천 가격대를 미리 알려줘요`}
-          </p>
+        <DescriptionBox attrAnim={currentScroll > fifthOffsetTop - 600}>
+          <h1>견적서 확인</h1>
+          <p>{`전국 가전매장 딜러분들이\n실시간으로 직접 견적내 드려요`}</p>
+          <p>{`최저 견적서 추천 및 다양한 혜택을\n한눈에 확인 할 수 있어요`}</p>
         </DescriptionBox>
+        <SimulatorImageBox
+          src="/static/images/simulator3.png"
+          attrAnim={currentScroll > fifthOffsetTop - 600}
+        />
       </ContentBlock>
     </Wrapper>
   );
@@ -58,7 +54,7 @@ const ContentBlock = styled.div`
 
 const SimulatorImageBox = styled.img<TAnimation>`
   width: 270px;
-  margin-right: 100px;
+
   opacity: 0;
   ${props =>
     props.attrAnim &&
@@ -70,10 +66,12 @@ const SimulatorImageBox = styled.img<TAnimation>`
 
 const DescriptionBox = styled.div<TAnimation>`
   margin-top: 100px;
+  margin-right: 100px;
   & > h1 {
     margin-bottom: 20px;
     color: #5180df;
     ${({ theme }) => theme.fontSet(38, 900, 50)};
+    text-align: right;
     letter-spacing: -0.02em;
     opacity: 0;
   }
@@ -82,17 +80,15 @@ const DescriptionBox = styled.div<TAnimation>`
     ${({ theme }) => theme.fontSet(44, 700, 60)};
     letter-spacing: -0.03em;
     white-space: pre-wrap;
+    text-align: right;
     opacity: 0;
   }
   & > p:nth-child(3) {
     margin-bottom: 50px;
     ${({ theme }) => theme.fontSet(20, 500, 30)};
     white-space: pre-wrap;
+    text-align: right;
     opacity: 0;
-    & > em {
-      color: #3a67bf;
-      ${({ theme }) => theme.fontSet(20, 900, 30)};
-    }
   }
   ${props =>
     props.attrAnim &&

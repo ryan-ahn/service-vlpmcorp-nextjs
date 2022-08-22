@@ -26,7 +26,7 @@ export default function SecondSection() {
 
   return (
     <Wrapper ref={secondScrollRef}>
-      <ContentBlock attrAnim={currentScroll > secondOffsetTop - 550}>
+      <ContentBlock attrAnim={currentScroll > secondOffsetTop - 600}>
         <p>패키지 가전, 같은 상품인데</p>
         <div>
           <p>매장마다 가격이 다르다고요?</p>
@@ -40,7 +40,7 @@ export default function SecondSection() {
 const Wrapper = styled.div`
   ${({ theme }) => theme.flexSet('center', 'center', 'row')};
   width: 100%;
-  height: calc(100vh - 60px);
+  height: 100vh;
 `;
 
 const ContentBlock = styled.div<TAnimation>`
