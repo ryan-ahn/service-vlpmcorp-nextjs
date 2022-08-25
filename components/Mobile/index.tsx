@@ -20,7 +20,6 @@ import FooterBlock from './FooterBlock';
 export default function MobileMain() {
   // RootState
   const { currentScroll, setCurrentScroll } = useScrollStore();
-  console.log(currentScroll);
   // Ref
   const scrollRef = useRef<any>(null);
 

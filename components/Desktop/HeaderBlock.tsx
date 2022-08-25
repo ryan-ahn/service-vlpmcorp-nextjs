@@ -29,7 +29,7 @@ export default function HeaderBlock() {
         (currentScroll >= secondOffsetTop - 60 && currentScroll < thirdOffsetTop - 60) ||
         (currentScroll >= fourthOffsetTop - 60 && currentScroll < contactOffsetTop - 60)
       }
-      attrGrayMode={currentScroll >= contactOffsetTop - 60}
+      attrGrayMode={currentScroll !== 0 && currentScroll >= contactOffsetTop - 60}
     >
       <ContentBlock>
         <FlexSpaceBox>
@@ -38,7 +38,7 @@ export default function HeaderBlock() {
               (currentScroll >= secondOffsetTop - 60 && currentScroll < thirdOffsetTop - 60) ||
               (currentScroll >= fourthOffsetTop - 60 && currentScroll < contactOffsetTop - 60)
             }
-            attrGrayMode={currentScroll >= contactOffsetTop - 60}
+            attrGrayMode={currentScroll !== 0 && currentScroll >= contactOffsetTop - 60}
           >
             VLPM
           </LogoText>
@@ -47,7 +47,7 @@ export default function HeaderBlock() {
               (currentScroll >= secondOffsetTop - 60 && currentScroll < thirdOffsetTop - 60) ||
               (currentScroll >= fourthOffsetTop - 60 && currentScroll < contactOffsetTop - 60)
             }
-            attrGrayMode={currentScroll >= contactOffsetTop - 60}
+            attrGrayMode={currentScroll !== 0 && currentScroll >= contactOffsetTop - 60}
             onClick={onClickScrollToUp}
           >
             <p>Contact</p>
