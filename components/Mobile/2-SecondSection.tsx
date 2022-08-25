@@ -27,9 +27,9 @@ export default function SecondSection() {
   return (
     <Wrapper ref={secondScrollRef}>
       <ContentBlock attrAnim={currentScroll > secondOffsetTop - 600}>
-        <p>패키지 가전, 같은 상품인데</p>
+        <p>{'패키지 가전,\n같은 상품인데'}</p>
         <div>
-          <p>매장마다 가격이 다르다고요?</p>
+          <p>{'매장마다 가격이\n다르다고요?'}</p>
           <div />
         </div>
       </ContentBlock>
@@ -39,16 +39,17 @@ export default function SecondSection() {
 
 const Wrapper = styled.div`
   ${({ theme }) => theme.flexSet('center', 'center', 'row')};
-  width: 100%;
   height: 100vh;
 `;
 
 const ContentBlock = styled.div<TAnimation>`
+  width: 240px;
   margin-top: 70px;
   & > p:nth-child(1) {
     margin-bottom: 15px;
-    ${({ theme }) => theme.fontSet(36, 500, 50)};
+    ${({ theme }) => theme.fontSet(33, 400, 45)};
     letter-spacing: -0.05em;
+    white-space: pre-wrap;
     text-align: center;
     opacity: 0;
     ${props =>
@@ -61,14 +62,14 @@ const ContentBlock = styled.div<TAnimation>`
   & > div:nth-child(2) {
     position: relative;
     ${({ theme }) => theme.flexSet('center', 'center', 'row')};
-    width: 530px;
-    height: 60px;
-    animation: text1 2s 1s cubic-bezier(0.075, 0.82, 0.165, 1) both;
+    height: 45px;
+    margin-top: 60px;
     & > p:nth-child(1) {
       position: absolute;
       bottom: 0;
-      ${({ theme }) => theme.fontSet(44, 700, 55)};
+      ${({ theme }) => theme.fontSet(35, 700, 48)};
       letter-spacing: -0.02em;
+      white-space: pre-wrap;
       text-align: center;
       z-index: 2;
       opacity: 0;
@@ -76,22 +77,21 @@ const ContentBlock = styled.div<TAnimation>`
         props.attrAnim &&
         css`
           opacity: 1;
-          animation: moveup 1.5s 1s cubic-bezier(0.075, 0.82, 0.165, 1) both;
+          animation: moveup 1s 1s cubic-bezier(0.075, 0.82, 0.165, 1) both;
         `}
     }
     & > div:nth-child(2) {
       position: absolute;
-      bottom: 0;
-      left: 2px;
-      margin-bottom: 50px;
-      border: 12px solid #92b6fb;
+      bottom: 98px;
+      left: 5px;
+      border: 10px solid #92b6fb;
       z-index: 1;
       opacity: 0;
       ${props =>
         props.attrAnim &&
         css`
           opacity: 1;
-          animation: underline 1.5s 1.5s both;
+          animation: MUnderline 1.5s 1.5s both;
         `}
     }
   }

@@ -1,6 +1,6 @@
 /**
  * Author : Ryan
- * Date : 2022-08-21
+ * Date : 2022-08-25
  * Desc : index
  */
 
@@ -17,18 +17,20 @@ import FifthSection from './5-FifthSection';
 import ContactSection from './6-ContactSection';
 import FooterBlock from './FooterBlock';
 
-export default function Main() {
+export default function MobileMain() {
   // RootState
-  const { setCurrentScroll } = useScrollStore();
+  const { currentScroll, setCurrentScroll } = useScrollStore();
+  console.log(currentScroll);
   // Ref
   const scrollRef = useRef<any>(null);
 
   const setScroll = useCallback(
     throttle(() => {
-      if (document !== undefined) {
-        const scroll = document.getElementById('scroll');
+      console.log('hi');
+      if (window !== null) {
+        const scroll = window.scrollY;
         if (scroll) {
-          setCurrentScroll(scroll.scrollTop);
+          setCurrentScroll(scroll);
         }
       }
     }, 200),
@@ -36,17 +38,16 @@ export default function Main() {
   );
 
   useEffect(() => {
-    const scroll = document.getElementById('scroll');
-    if (scroll) {
-      scroll.addEventListener('scroll', setScroll);
+    if (window !== null) {
+      window.addEventListener('scroll', setScroll);
       return () => {
-        scroll.removeEventListener('scroll', setScroll);
+        window?.removeEventListener('scroll', setScroll);
       };
     }
-  });
+  }, [setCurrentScroll]);
 
   return (
-    <Wrapper ref={scrollRef} id="scroll">
+    <Wrapper ref={scrollRef}>
       <HeaderBlock />
       <FirstSection />
       <SecondSection />
@@ -62,5 +63,4 @@ export default function Main() {
 const Wrapper = styled.div`
   height: 100vh;
   padding-top: 60px;
-  overflow: scroll;
 `;

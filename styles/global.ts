@@ -67,6 +67,16 @@ export const GlobalStyle = createGlobalStyle`
       width: 165px;
     }
   }
+  @keyframes MUnderline {
+    from {
+      opacity: 0;
+      width: 0;
+    }
+    to {
+      opacity: 1;
+      width: 130px;
+    }
+  }
   @keyframes height100 {
     from {
       height: 0;
