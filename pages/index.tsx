@@ -6,9 +6,13 @@
 
 import { META_COMMON } from '@containers/meta';
 import SEO from '@components/SEO';
-import Main from '@components/Main';
+import Desktop from '@components/Desktop';
+import Mobile from '@components/Mobile';
 
-export default function index() {
+type TProps = {
+  userDevice: string;
+};
+export default function index({ userDevice }: TProps) {
   const meta = {
     page_title: META_COMMON.site_name,
     page_description: META_COMMON.site_description,
@@ -16,11 +20,19 @@ export default function index() {
     page_image: META_COMMON.site_image,
   };
 
-  return (
-    <SEO meta={meta}>
-      <Main />
-    </SEO>
-  );
+  if (userDevice === 'mobile') {
+    return (
+      <SEO meta={meta}>
+        <Mobile />
+      </SEO>
+    );
+  } else {
+    return (
+      <SEO meta={meta}>
+        <Desktop />
+      </SEO>
+    );
+  }
 }
 
 export const getServerSideProps = async (context: any) => {

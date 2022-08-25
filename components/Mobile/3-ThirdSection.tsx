@@ -1,0 +1,169 @@
+/**
+ * Author : Ryan
+ * Date : 2022-08-21
+ * Desc : 3-ThirdSection
+ */
+
+import { useEffect, useRef } from 'react';
+import styled, { css } from 'styled-components';
+import { useScrollStore } from '@lib/store/useZustandStore';
+
+type TAnimation = {
+  attrAnim: boolean;
+};
+
+export default function ThirdSection() {
+  // RootState
+  const { currentScroll, thirdOffsetTop, setThirdOffsetTop } = useScrollStore();
+  // Ref
+  const thirdScrollRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (thirdScrollRef && thirdScrollRef.current) {
+      setThirdOffsetTop(thirdScrollRef.current.offsetTop);
+    }
+  }, []);
+
+  return (
+    <Wrapper ref={thirdScrollRef}>
+      <ContentBlock>
+        <TitleBox attrAnim={currentScroll > thirdOffsetTop - 600}>
+          <p>
+            <em>발품노노</em>
+            {`에서\n한번에\n견적 비교하세요!`}
+          </p>
+        </TitleBox>
+        <GraphBox>
+          <EverageGraphBox attrAnim={currentScroll > thirdOffsetTop - 600}>
+            <div>
+              <p>{'매장방문\n평균 8회'}</p>
+            </div>
+          </EverageGraphBox>
+          <VlpmGraphBox attrAnim={currentScroll > thirdOffsetTop - 600}>
+            <div>
+              <p>1회 신청</p>
+            </div>
+          </VlpmGraphBox>
+        </GraphBox>
+        <NoticeBox attrAnim={currentScroll > thirdOffsetTop - 650}>
+          <p>{'혼수 및 이사 준비로\n낭비되는 시간과 비용을 줄여보세요.'}</p>
+        </NoticeBox>
+      </ContentBlock>
+    </Wrapper>
+  );
+}
+
+const Wrapper = styled.div`
+  ${({ theme }) => theme.flexSet('center', 'center', 'row')};
+  width: 100%;
+  height: calc(100vh + 150px);
+  padding-top: 100px;
+  background-color: black;
+`;
+
+const ContentBlock = styled.div`
+  ${({ theme }) => theme.flexSet('center', 'center', 'column')};
+`;
+
+const TitleBox = styled.div<TAnimation>`
+  opacity: 0;
+  & > p {
+    color: white;
+    ${({ theme }) => theme.fontSet(32, 500, 42)};
+    white-space: pre-wrap;
+    text-align: center;
+    & > em {
+      color: #4f90ff;
+    }
+  }
+  ${props =>
+    props.attrAnim &&
+    css`
+      opacity: 1;
+      animation: moveup 1.5s 0.5s cubic-bezier(0.075, 0.82, 0.165, 1) both;
+    `}
+`;
+
+const GraphBox = styled.div`
+  ${({ theme }) => theme.flexSet('center', 'center', 'row')};
+  margin-bottom: 40px;
+`;
+
+const CommonGraphBox = styled.div`
+  position: relative;
+  width: 90px;
+  height: 200px;
+  border-radius: 15px;
+  overflow: hidden;
+  opacity: 0;
+  & > div {
+    ${({ theme }) => theme.flexSet('center', 'center', 'row')};
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    opacity: 0;
+    & > p {
+      opacity: 0;
+      ${({ theme }) => theme.fontSet(15, 700, 30)};
+      white-space: pre-wrap;
+    }
+  }
+`;
+
+const EverageGraphBox = styled(CommonGraphBox.withComponent('div'))<TAnimation>`
+  margin-right: 15px;
+  background-color: #666;
+  ${props =>
+    props.attrAnim &&
+    css`
+      opacity: 1;
+      animation: fadein 1s 1s both;
+      & > div {
+        opacity: 1;
+        animation: height100 1s 1.5s both;
+        background-color: #c5c5c5;
+        & > p {
+          opacity: 1;
+          animation: fadein 0.5s 2.5s both;
+        }
+      }
+    `}
+`;
+
+const VlpmGraphBox = styled(CommonGraphBox.withComponent('div'))<TAnimation>`
+  background-color: #666;
+  opacity: 0;
+  ${props =>
+    props.attrAnim &&
+    css`
+      opacity: 1;
+      animation: fadein 1s 1s both;
+      & > div {
+        opacity: 1;
+        animation: height20 1s 1.5s both;
+        background-color: #4f90ff;
+        & > p {
+          opacity: 1;
+          color: white;
+          animation: fadein 0.5s 2.5s both;
+        }
+      }
+    `}
+`;
+
+const NoticeBox = styled.div<TAnimation>`
+  opacity: 0;
+  & > p {
+    color: white;
+    ${({ theme }) => theme.fontSet(13, 500, 20)};
+    white-space: pre-wrap;
+    text-align: center;
+    opacity: 0.7;
+  }
+  ${props =>
+    props.attrAnim &&
+    css`
+      opacity: 1;
+      animation: fadein 1s 2s both;
+    `}
+`;
