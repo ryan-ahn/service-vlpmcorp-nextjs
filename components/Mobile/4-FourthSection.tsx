@@ -4,8 +4,9 @@
  * Desc : 4-fourthSection
  */
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
+import { validatePrice } from '@lib/utils/verification';
 import { useScrollStore } from '@lib/store/useZustandStore';
 
 type TAnimation = {
@@ -15,8 +16,18 @@ type TAnimation = {
 export default function FourthSection() {
   // RootState
   const { currentScroll, fourthOffsetTop, setFourthOffsetTop } = useScrollStore();
+  // State
+  const [count, setCount] = useState(500);
+  const [toggleSwitch, setToggleSwitch] = useState(false);
+  // Value
+  const frameRate = 1000 / 60;
+  const totalFrame = Math.round(2000 / frameRate);
   // Ref
   const fourthScrollRef = useRef<any>(null);
+
+  const easeOutExpo = (t: number): number => {
+    return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+  };
 
   useEffect(() => {
     if (fourthScrollRef && fourthScrollRef.current) {
@@ -24,13 +35,51 @@ export default function FourthSection() {
     }
   }, []);
 
+  useEffect(() => {
+    if (currentScroll > fourthOffsetTop - 300) {
+      setToggleSwitch(true);
+    } else {
+      setToggleSwitch(false);
+      setCount(500);
+    }
+  }, [currentScroll, fourthOffsetTop]);
+
+  useEffect(() => {
+    if (toggleSwitch) {
+      setTimeout(() => {
+        let currentNumber = 0;
+        const counter = setInterval(() => {
+          const progress = easeOutExpo(++currentNumber / totalFrame);
+          setCount(Math.round(1300 * progress));
+
+          if (progress === 1) {
+            clearInterval(counter);
+          }
+        }, frameRate);
+      }, 500);
+    }
+  }, [toggleSwitch]);
+
   return (
     <Wrapper ref={fourthScrollRef}>
       <ContentBlock>
-        <SimulatorImageBox
-          src="/static/images/simulator2.png"
-          attrAnim={currentScroll > fourthOffsetTop - 600}
-        />
+        <SimulatorBox>
+          <SimulatorImage
+            src="/static/images/simulator2.png"
+            attrAnim={currentScroll > fourthOffsetTop - 600}
+          />
+          <ExpansionBox attrAnim={currentScroll > fourthOffsetTop - 300}>
+            <div>
+              <div />
+              <div>
+                <div>
+                  <div />
+                  <p>{validatePrice(count)}</p>
+                </div>
+              </div>
+            </div>
+          </ExpansionBox>
+        </SimulatorBox>
         <DescriptionBox attrAnim={currentScroll > fourthOffsetTop - 100}>
           <h1>요청서 작성</h1>
           <p>{`원하는 스펙과\n조건으로!`}</p>
@@ -56,7 +105,13 @@ const ContentBlock = styled.div`
   ${({ theme }) => theme.flexSet('center', 'center', 'column')};
 `;
 
-const SimulatorImageBox = styled.img<TAnimation>`
+const SimulatorBox = styled.div`
+  position: relative;
+  ${({ theme }) => theme.flexSet('center', 'center', 'row')};
+  width: 300px;
+`;
+
+const SimulatorImage = styled.img<TAnimation>`
   width: 240px;
   opacity: 0;
   ${props =>
@@ -64,6 +119,68 @@ const SimulatorImageBox = styled.img<TAnimation>`
     css`
       opacity: 1;
       animation: fadein 1.5s 0s both;
+    `}
+`;
+
+const ExpansionBox = styled.div<TAnimation>`
+  position: absolute;
+  top: 135px;
+  width: 100%;
+  height: 100px;
+  border-radius: 25px;
+  background-color: white;
+  filter: drop-shadow(3px 3px 10px rgba(0, 0, 0, 0.15));
+  opacity: 0;
+  & > div {
+    position: relative;
+    padding: 30px;
+    & > div:nth-child(1) {
+      position: absolute;
+      bottom: 0px;
+      width: calc(100% - 60px);
+      height: 30px;
+      border-radius: 10px;
+      background-color: #f2f4f6;
+      z-index: 0;
+    }
+    & > div:nth-child(2) {
+      position: absolute;
+      bottom: 0px;
+      width: 50px;
+      height: 30px;
+      border-radius: 10px;
+      background-color: #557fe6;
+      z-index: 0;
+      & > div {
+        ${({ theme }) => theme.flexSet('flex-end', 'center', 'row')};
+        width: 100%;
+        height: 100%;
+        padding: 10px;
+        position: relative;
+        & > div {
+          position: absolute;
+          bottom: -25px;
+          right: -10px;
+          width: 25px;
+          height: 25px;
+          ${({ theme }) => theme.backgroundSet('/static/icons/budget-pointer.svg', 'contain')};
+        }
+        & > p {
+          color: white;
+        }
+      }
+    }
+  }
+  ${props =>
+    props.attrAnim &&
+    css`
+      opacity: 1;
+      animation: fadein 0.5s 0s both;
+      & > div {
+        & > div {
+          animation: width130 1s 0.5s both;
+        }
+      }
     `}
 `;
 
