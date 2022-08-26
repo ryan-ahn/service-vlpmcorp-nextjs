@@ -25,10 +25,10 @@ export default function DesktopMain() {
 
   const setScroll = useCallback(
     throttle(() => {
-      if (document !== undefined) {
-        const scroll = document.getElementById('scroll');
+      if (window !== null) {
+        const scroll = window.scrollY;
         if (scroll) {
-          setCurrentScroll(scroll.scrollTop);
+          setCurrentScroll(scroll);
         }
       }
     }, 200),
@@ -36,14 +36,13 @@ export default function DesktopMain() {
   );
 
   useEffect(() => {
-    const scroll = document.getElementById('scroll');
-    if (scroll) {
-      scroll.addEventListener('scroll', setScroll);
+    if (window !== null) {
+      window.addEventListener('scroll', setScroll);
       return () => {
-        scroll.removeEventListener('scroll', setScroll);
+        window?.removeEventListener('scroll', setScroll);
       };
     }
-  });
+  }, [setCurrentScroll]);
 
   return (
     <Wrapper ref={scrollRef} id="scroll">
@@ -62,5 +61,4 @@ export default function DesktopMain() {
 const Wrapper = styled.div`
   height: 100vh;
   padding-top: 60px;
-  overflow: scroll;
 `;
