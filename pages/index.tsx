@@ -4,17 +4,14 @@
  * Desc : index page
  */
 
+import { useEffect, useState } from 'react';
 import { META_COMMON } from '@containers/meta';
 import SEO from '@components/SEO';
 import Desktop from '@components/Desktop';
 import Mobile from '@components/Mobile';
 
-type TProps = {
-  userDevice: string;
-};
-
-export default function index(appProps: any) {
-  console.log(appProps);
+export default function index() {
+  const [device, setDevice] = useState('mobile');
   const meta = {
     page_title: META_COMMON.site_name,
     page_description: META_COMMON.site_description,
@@ -22,7 +19,17 @@ export default function index(appProps: any) {
     page_image: META_COMMON.site_image,
   };
 
-  if (appProps === 'mobile') {
+  useEffect(() => {
+    if (window !== undefined) {
+      if (window.innerWidth < 1024) {
+        setDevice('mobile');
+      } else {
+        setDevice('desktop');
+      }
+    }
+  }, [device]);
+
+  if (device === 'mobile') {
     return (
       <SEO meta={meta}>
         <Mobile />
