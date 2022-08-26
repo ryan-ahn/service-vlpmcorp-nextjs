@@ -12,8 +12,9 @@ import Mobile from '@components/Mobile';
 type TProps = {
   userDevice: string;
 };
-export default function index({ userDevice }: TProps) {
-  console.log(userDevice);
+
+export default function index(appProps: any) {
+  console.log(appProps);
   const meta = {
     page_title: META_COMMON.site_name,
     page_description: META_COMMON.site_description,
@@ -21,7 +22,7 @@ export default function index({ userDevice }: TProps) {
     page_image: META_COMMON.site_image,
   };
 
-  if (userDevice === 'mobile') {
+  if (appProps === 'mobile') {
     return (
       <SEO meta={meta}>
         <Mobile />
