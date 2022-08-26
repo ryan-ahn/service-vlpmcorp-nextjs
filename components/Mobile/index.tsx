@@ -25,7 +25,6 @@ export default function MobileMain() {
 
   const setScroll = useCallback(
     throttle(() => {
-      console.log('hi');
       if (window !== null) {
         const scroll = window.scrollY;
         if (scroll) {
