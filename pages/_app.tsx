@@ -34,7 +34,7 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
 
   //Check Device
   const mobile = userAgent?.indexOf('Mobi');
-  appProps.pageProps.userDevice = userAgent;
+  appProps.pageProps.userDevice = mobile !== -1 ? 'mobile' : 'desktop';
 
   return { ...appProps };
 };

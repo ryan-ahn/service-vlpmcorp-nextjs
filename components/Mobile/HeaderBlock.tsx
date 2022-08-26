@@ -40,7 +40,7 @@ export default function HeaderBlock() {
             }
             attrGrayMode={currentScroll !== 0 && currentScroll >= contactOffsetTop - 60}
           >
-            VLPM (Mobile)
+            VLPM
           </LogoText>
           <StoreBox
             attrWhiteMode={

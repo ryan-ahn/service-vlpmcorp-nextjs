@@ -5,6 +5,7 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import axios from 'axios';
 import styled, { css } from 'styled-components';
 import { useScrollStore } from '@lib/store/useZustandStore';
 import { MOBILE_REGEX } from '@lib/utils/verification';
@@ -34,6 +35,16 @@ export default function ContactSection() {
     [value, verificationValue],
   );
 
+  const onClickSendNumber = useCallback(async () => {
+    await axios
+      .post('https://api.vlpmcorp.com/landing', { contact: value })
+      .then(res => console.log(res));
+  }, [value]);
+
+  const onClickGetNumber = useCallback(async () => {
+    await axios.get('https://api.vlpmcorp.com/landing').then(res => console.log(res));
+  }, []);
+
   useEffect(() => {
     if (contactScrollRef && contactScrollRef.current) {
       setContactOffsetTop(contactScrollRef.current.offsetTop);
@@ -43,7 +54,7 @@ export default function ContactSection() {
   return (
     <Wrapper ref={contactScrollRef}>
       <ContentBlock>
-        <TitleBox>
+        <TitleBox onClick={onClickGetNumber}>
           <p>앱 오픈 알림받기 🔔</p>
         </TitleBox>
         <InputBox>
@@ -53,7 +64,11 @@ export default function ContactSection() {
             type="number"
             onChange={e => onChangeValue(e.target.value)}
           />
-          <ButtonBox disabled={!verificationValue} attrActive={verificationValue}>
+          <ButtonBox
+            disabled={!verificationValue}
+            attrActive={verificationValue}
+            onClick={onClickSendNumber}
+          >
             <p>전송</p>
           </ButtonBox>
         </InputBox>
