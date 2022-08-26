@@ -93,4 +93,12 @@ export const GlobalStyle = createGlobalStyle`
       height: 15%;
     }
   }
+  @keyframes width130 {
+    from {
+      width: 90px;
+    }
+    to {
+      width: 170px;
+    }
+  }
 `;
