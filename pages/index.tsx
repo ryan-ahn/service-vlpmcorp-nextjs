@@ -13,6 +13,7 @@ type TProps = {
   userDevice: string;
 };
 export default function index({ userDevice }: TProps) {
+  console.log(userDevice);
   const meta = {
     page_title: META_COMMON.site_name,
     page_description: META_COMMON.site_description,
