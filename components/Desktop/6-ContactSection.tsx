@@ -9,6 +9,7 @@ import axios from 'axios';
 import styled, { css } from 'styled-components';
 import { useScrollStore } from '@lib/store/useZustandStore';
 import { MOBILE_REGEX } from '@lib/utils/verification';
+import Toast from '@components/Common/Toast';
 
 type TButtonBox = {
   attrActive: boolean;
@@ -18,6 +19,7 @@ export default function ContactSection() {
   // RootState
   const { setContactOffsetTop } = useScrollStore();
   // State
+  const [sendSMS, setSendSMS] = useState(false);
   const [value, setValue] = useState<string>('');
   const [verificationValue, setVerificationValue] = useState(false);
   // Ref
@@ -38,7 +40,7 @@ export default function ContactSection() {
   const onClickSendNumber = useCallback(async () => {
     await axios
       .post('https://api.vlpmcorp.com/landing', { contact: value })
-      .then(res => console.log(res));
+      .then((res: any) => (res.status === 200 ? setSendSMS(true) : setSendSMS(false)));
   }, [value]);
 
   const onClickGetNumber = useCallback(async () => {
@@ -50,6 +52,12 @@ export default function ContactSection() {
       setContactOffsetTop(contactScrollRef.current.offsetTop);
     }
   }, []);
+
+  useEffect(() => {
+    if (sendSMS) {
+      setTimeout(() => setSendSMS(false), 2000);
+    }
+  }, [sendSMS]);
 
   return (
     <Wrapper ref={contactScrollRef}>
@@ -86,6 +94,7 @@ export default function ContactSection() {
           </PlayStoreButton>
         </StoreBox>
       </ContentBlock>
+      <Toast text="알람이 신청되었습니다." description="1등으로 알려드릴게요" inverted={sendSMS} />
     </Wrapper>
   );
 }
