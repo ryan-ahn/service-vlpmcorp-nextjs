@@ -8,7 +8,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import styled, { css } from 'styled-components';
 import { useScrollStore } from '@lib/store/useZustandStore';
-import { MOBILE_REGEX } from '@lib/utils/verification';
+import { MOBILE_REGEX, validateCount } from '@lib/utils/verification';
 import Toast from '@components/Common/Toast';
 
 type TButtonBox = {
@@ -19,6 +19,7 @@ export default function ContactSection() {
   // RootState
   const { setContactOffsetTop } = useScrollStore();
   // State
+  const [currentUser, setCurrentUser] = useState(0);
   const [sendSMS, setSendSMS] = useState(false);
   const [value, setValue] = useState<string>('');
   const [verificationValue, setVerificationValue] = useState(false);
@@ -38,10 +39,17 @@ export default function ContactSection() {
   );
 
   const onClickSendNumber = useCallback(async () => {
-    await axios
-      .post('https://api.vlpmcorp.com/landing', { contact: value })
-      .then((res: any) => (res.status === 200 ? setSendSMS(true) : setSendSMS(false)));
+    await axios.post('https://api.vlpmcorp.com/landing', { contact: value }).then((res: any) => {
+      setSendSMS(true);
+      onClickGetNumber();
+    });
   }, [value]);
+
+  const onClickGetNumber = useCallback(async () => {
+    await axios
+      .get('https://api.vlpmcorp.com/landing')
+      .then(res => setCurrentUser(2000 + res.data.count));
+  }, []);
 
   useEffect(() => {
     if (contactScrollRef && contactScrollRef.current) {
@@ -55,11 +63,18 @@ export default function ContactSection() {
     }
   }, [sendSMS]);
 
+  useEffect(() => {
+    onClickGetNumber();
+  }, []);
+
   return (
     <Wrapper ref={contactScrollRef}>
       <ContentBlock>
         <TitleBox>
           <p>앱 오픈 알림받기 🔔</p>
+          <p>
+            현재 <span>{validateCount(currentUser)}</span>분이 앱오픈 알림을 신청했어요!
+          </p>
         </TitleBox>
         <InputBox>
           <TextInput
@@ -76,9 +91,6 @@ export default function ContactSection() {
             <p>전송</p>
           </ButtonBox>
         </InputBox>
-        <DescriptionBox>
-          <p>앱이 오픈하면 1등으로 연락 드릴게요!</p>
-        </DescriptionBox>
         <StoreBox>
           <AppStoreButton>
             <div />
@@ -107,9 +119,18 @@ const ContentBlock = styled.div`
 `;
 
 const TitleBox = styled.div`
-  margin-bottom: 30px;
+  ${({ theme }) => theme.flexSet('center', 'center', 'column')};
+  margin-bottom: 20px;
   & > p {
     ${({ theme }) => theme.fontSet(25, 700, 30)};
+  }
+  & > p:nth-child(2) {
+    ${({ theme }) => theme.fontSet(15, 400, 25)};
+    margin-top: 10px;
+    & > span {
+      color: #557fe6;
+      ${({ theme }) => theme.fontSet(15, 700, 25)};
+    }
   }
 `;
 
@@ -167,6 +188,7 @@ const DescriptionBox = styled.div`
 
 const StoreBox = styled.div`
   ${({ theme }) => theme.flexSet('space-between', 'center', 'row')};
+  margin-top: 10px;
 `;
 
 const CommonButton = styled.div`

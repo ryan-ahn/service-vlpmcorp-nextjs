@@ -20,7 +20,6 @@ export default function ContactSection() {
   const { setContactOffsetTop } = useScrollStore();
   // State
   const [currentUser, setCurrentUser] = useState(0);
-  console.log(currentUser);
   const [sendSMS, setSendSMS] = useState(false);
   const [value, setValue] = useState<string>('');
   const [verificationValue, setVerificationValue] = useState(false);
