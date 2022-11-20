@@ -438,7 +438,7 @@ const HeaderBlock = styled.div`
 const ContentContainer = styled.section`
   ${({ theme }) => theme.flexSet('center', 'flex-start', 'column')}
   max-width: 1024px;
-  margin: 50px;
+  margin: 20px 50px 60px 50px;
   padding: 15px;
 `;
 
@@ -449,6 +449,7 @@ const Article = styled.article`
 const Notice = styled.p`
   color: #222;
   ${({ theme }) => theme.fontSet(18, 400, 27)};
+  margin-top: 60px;
   margin-bottom: 10px;
 `;
 
