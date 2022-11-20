@@ -7,6 +7,18 @@
 import styled from 'styled-components';
 
 export default function FooterBlock() {
+  const onClickRouteToService = () => {
+    if (window) {
+      window.open('/service');
+    }
+  };
+
+  const onClickRouteToPolicy = () => {
+    if (window) {
+      window.open('/policy');
+    }
+  };
+
   return (
     <Wrapper>
       <TitleBox>
@@ -27,6 +39,10 @@ export default function FooterBlock() {
         <div />
         <p>Allrights reserved 2022 vlpm corp</p>
       </CorpInfoBox>
+      <PolicyBox>
+        <p onClick={onClickRouteToService}>서비스 이용약관</p>
+        <p onClick={onClickRouteToPolicy}>개인정보 수집 및 이용약관</p>
+      </PolicyBox>
     </Wrapper>
   );
 }
@@ -34,8 +50,7 @@ export default function FooterBlock() {
 const Wrapper = styled.div`
   ${({ theme }) => theme.flexSet('flex-start', 'center', 'column')};
   width: 100%;
-  height: 460px;
-  padding: 30px;
+  padding: 50px;
   background-color: black;
 `;
 
@@ -84,5 +99,17 @@ const CorpInfoBox = styled.div`
     height: 25px;
     margin: 15px;
     ${({ theme }) => theme.backgroundSet('/static/icons/aws.png', 'contain')};
+  }
+`;
+
+const PolicyBox = styled.div`
+  ${({ theme }) => theme.flexSet('space-between', 'center', 'column')};
+  width: 400px;
+  padding: 30px 60px;
+  & > p {
+    color: white;
+    margin-bottom: 30px;
+    ${({ theme }) => theme.fontSet(14, 400, 15)};
+    opacity: 0.6;
   }
 `;
