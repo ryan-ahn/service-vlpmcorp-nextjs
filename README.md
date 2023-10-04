@@ -1,5 +1,5 @@
 # VLPM Corporation
-<img src="https://platform-client-release.s3.ap-northeast-2.amazonaws.com/temp/vlpmp-corp.png" />
+<img src="https://storage.googleapis.com/ryan-ahn.appspot.com/public/vlpmp-corp.png" />
 
 ## Introduction
 
