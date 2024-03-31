@@ -37,13 +37,13 @@ export default class MyDocument extends Document {
       <Html>
         <Head>
           {/* icons */}
-          <link rel="shortcut icon" href="/static/icons/common/favicon.png" />
-          <link rel="apple-touch-icon" sizes="196x196" href="/static/icons/common/favicon196.png" />
+          <link rel="shortcut icon" href="/favicon.svg" />
+          <link rel="apple-touch-icon" sizes="196x196" href="/favicon.svg" />
           <link
             rel="icon"
             type="image/png"
             sizes="32x32"
-            href="/static/icons/common/favicon32.png"
+            href="/favicon.svg"
           />
           {/* font */}
           <link rel="preconnect" href="https://fonts.googleapis.com" />
