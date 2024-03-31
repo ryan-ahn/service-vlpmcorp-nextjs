@@ -5,7 +5,7 @@
  */
 
 import { useEffect, useState } from 'react';
-import { META_COMMON } from '@containers/meta';
+import { META_COMMON } from '@constants/meta';
 import SEO from '@components/SEO';
 import Desktop from '@components/Desktop';
 import Mobile from '@components/Mobile';

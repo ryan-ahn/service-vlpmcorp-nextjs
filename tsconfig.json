@@ -2,7 +2,11 @@
   "compilerOptions": {
     "baseUrl": ".",
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
@@ -16,21 +20,37 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "paths": {
-      "@components/*": ["components/*"],
-      "@lib/*": ["lib/*"],
-      "@language/*": ["language/*"],
-      "@containers/*": ["containers/*"],
-      "@styles/*": ["styles/*"]
+      "@components/*": [
+        "components/*"
+      ],
+      "@lib/*": [
+        "lib/*"
+      ],
+      "@language/*": [
+        "language/*"
+      ],
+      "@constants/*": [
+        "constants/*"
+      ],
+      "@styles/*": [
+        "styles/*"
+      ]
     },
     "incremental": true,
     "plugins": [
       {
         "name": "typescript-styled-plugin",
-        "tags": ["styled", "css", "sty"]
+        "tags": [
+          "styled",
+          "css",
+          "sty"
+        ]
       }
     ]
   },
-  "exclude": ["node_modules"],
+  "exclude": [
+    "node_modules"
+  ],
   "include": [
     "next-env.d.ts",
     "**/*.ts",
