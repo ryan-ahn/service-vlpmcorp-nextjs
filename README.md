@@ -1,4 +1,4 @@
-# VLPM Corporation
+# VLPM Corporation Web
 <img src="https://storage.googleapis.com/ryan-ahn.appspot.com/public/vlpmp-corp.png" />
 
 ## Introduction
